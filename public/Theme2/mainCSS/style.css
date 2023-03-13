@@ -1,0 +1,118 @@
+.select2-selection{padding: 16px !important;
+  display: flex !important;
+  align-items: center !important;}
+  
+  #full-size-image {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 70%;
+    height: 70%;object-fit: contain;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    display: none;
+  }
+  
+  #close-button {
+    position: fixed;
+    top: 80px;
+    right: 80px;
+    z-index: 9999;
+    display: none;
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: #ffa500; /* orange */
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    
+    margin: auto;
+  }
+
+  #overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    filter: blur(5px);
+    display: none;
+    z-index: 888;
+  }
+  
+
+  
+  
+  
+  
+.salesmanarrow,
+.salesTaxarrow,
+.ratearrow,
+.purchaseArrow,
+.customerarrow,
+.salesarrow,
+.productsArrow,
+.RepairArrow,
+.OrdersArrow,
+.productCatArrow,
+.dealersArrow,
+.CaratArrow,
+.companyArrow,
+.estimationArrow,
+.AdminArrow {
+  float: right;
+  cursor: pointer;
+}
+
+.select2-container--default
+  .select2-selection--single
+  .select2-selection__rendered {
+  padding-left: 0;
+  height: 20px;
+  margin-top: -9px;
+}
+
+@media print {
+  body {
+    visibility: hidden;
+  }
+  #printbtn {
+    visibility: hidden;
+  }
+  #printable {
+    visibility: visible;
+  }
+}
+@page {
+  size: A4;
+  margin: 25mm 25mm 25mm 25mm;
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact; 
+  }
+  
+}
+#imageNameForFullPreview{
+ 
+  /* align-items: center; */
+  /* background-color: grey; */
+  /* transform: translate(-50%, -50%) */
+display: none;
+}
+.imageNameForFullPreviewOuter{display: flex;justify-content: center;align-items: center;}
+.closeImage{font-size: 30px;color: white;float: right;margin: 10px;cursor: pointer;}
+
+.imageNameForFullPreview{
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+  margin: 20px;
+  
+}
