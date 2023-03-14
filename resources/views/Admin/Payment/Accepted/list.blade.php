@@ -81,7 +81,7 @@
                             @include('Admin.Payment.Accepted.table')
                         </tbody>
                     </table>
-                </div>F
+                </div>
 
                 <div class="page-links mt-4">
                     {{ $payments->links('pagination::bootstrap-4') }}

@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Payments;
 use App\Exports\payments;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Payment;
-use App\Models\State;
-use App\Models\Status;
+use App\Payment;
+use App\State;
+use App\Status;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -17,9 +17,9 @@ class PaymentController extends Controller
     public function initiatedPayment(Request $req)
     {
         $payments=DB::table('payments')
-        ->leftjoin('pradesh', 'payments.state_id', '=', 'pradesh.id')
-        ->leftjoin('status', 'payments.status_id', '=', 'status.id')
-        ->select('payments.*', 'pradesh.name as state_name', 'status.title as status_name')
+        ->leftjoin('states', 'payments.state_id', '=', 'states.id')
+        ->leftjoin('statuses', 'payments.status_id', '=', 'statuses.id')
+        ->select('payments.*', 'states.name as state_name', 'statuses.title as status_name')
         ->where('status_id','=',null)->paginate(10);
        
         return view('Admin.Payment.Checkoutinitiates.list',compact('payments'));
@@ -27,20 +27,20 @@ class PaymentController extends Controller
     public function acceptedPayment(Request $req)
     {
         $payments=DB::table('payments')
-        ->leftjoin('pradesh', 'payments.state_id', '=', 'pradesh.id')
-        ->leftjoin('status', 'payments.status_id', '=', 'status.id')
-        ->select('payments.*', 'pradesh.name as state_name', 'status.title as status_name')
-        ->where('status.title','=',"Accepted")->paginate(10);
+        ->leftjoin('states', 'payments.state_id', '=', 'states.id')
+        ->leftjoin('statuses', 'payments.status_id', '=', 'statuses.id')
+        ->select('payments.*', 'states.name as state_name', 'statuses.title as status_name')
+        ->where('statuses.title','=',"Accepted")->paginate(10);
        
         return view('Admin.Payment.Accepted.list',compact('payments'));
     }
     public function rejectedPayment(Request $req)
     {
         $payments=DB::table('payments')
-        ->leftjoin('pradesh', 'payments.state_id', '=', 'pradesh.id')
-        ->leftjoin('status', 'payments.status_id', '=', 'status.id')
-        ->select('payments.*', 'pradesh.name as state_name', 'status.title as status_name')
-        ->where('status.title','=',"Rejected")->paginate(10);
+        ->leftjoin('states', 'payments.state_id', '=', 'states.id')
+        ->leftjoin('statuses', 'payments.status_id', '=', 'statuses.id')
+        ->select('payments.*', 'states.name as state_name', 'statuses.title as status_name')
+        ->where('statuses.title','=',"Rejected")->paginate(10);
        
         return view('Admin.Payment.Rejection.list',compact('payments'));
     }
@@ -48,6 +48,7 @@ class PaymentController extends Controller
     public function changeStatus(Request $req)
     {
         $status=Status::where('title',"=",$req->type)->first();
+       
         $payment=Payment::find($req->payment_id);
         $payment->status_id=$status->id;
         $payment->update();
@@ -85,16 +86,17 @@ class PaymentController extends Controller
         $amount=$req->amount;
         if($result)
         {
-            return view('Admin.Payment.MakePayment.qrcodePage',compact('amount'));
+            // return view('Admin.Payment.MakePayment.qrcodePage',compact('amount'));
+            return redirect("/payments/initiated");
         }
     }
     public function export(Request $req)
     {
         $payments=DB::table('payments')
-        ->leftjoin('pradesh', 'payments.state_id', '=', 'pradesh.id')
-        ->leftjoin('status', 'payments.status_id', '=', 'status.id')
-        ->select('payments.*', 'pradesh.name as state_name', 'status.title as status_name')
-        ->where('status.title','=',"Rejected")->get();
-      return  Excel::download(new payments($payments),'Payments.xlsx');
+        ->leftjoin('states', 'payments.state_id', '=', 'states.id')
+        ->leftjoin('statuses', 'payments.status_id', '=', 'statuses.id')
+        ->select('payments.*', 'states.name as state_name', 'statuses.title as status_name')
+        ->where('statuses.title','=',"Rejected")->get();
+    //   return  Excel::download(new Payment($payments),'Payments.xlsx');
     }
 }

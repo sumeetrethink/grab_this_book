@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 //                                       user  validation      
 Route::get('/', [LoginController::class, 'loginForm'])->name('loginForm');
 Route::post('/login/validate', [LoginController::class, 'validateAdmin'])->name('validateAdmin');
