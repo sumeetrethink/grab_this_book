@@ -27,9 +27,8 @@
         <div class="card">
             <div class="card-body">
                 <div class=" header-buttons float-right">
-                    <a class="btn btn-danger " href="{{ url('software/orders/add') }}"><i
-                            class="fas fa-fw fa-plus-circle"></i>Add</a>
-                    <a class="btn btn-primary " href="{{ url('exportOrder') }}"><i
+
+                    <a class="btn btn-primary " onclick="Paymentexport('Accepted')"><i
                             class="fas fa-fw fa-file-excel"></i>Export</a>
                 </div>
                 <br>
@@ -82,7 +81,7 @@
                             @include('Admin.Payment.Accepted.table')
                         </tbody>
                     </table>
-                </div>F
+                </div>
 
                 <div class="page-links mt-4">
                     {{ $payments->links('pagination::bootstrap-4') }}

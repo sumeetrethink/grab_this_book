@@ -1,12 +1,10 @@
 <?php
 
-namespace Database\Seeders;
-
-use App\Models\adminModel;
+use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class admin_credentials extends Seeder
+class AdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,10 +13,11 @@ class admin_credentials extends Seeder
      */
     public function run()
     {
-        $admin=new adminModel();
+        $admin=new User();
         $admin->name='admin';
-        $admin->vUsername='admin';
-        $admin->vPassword=Hash::make('admin');
+        $admin->username='admin';
+        $admin->password=Hash::make('admin');
+        $admin->role=1;
         $admin->save();
     }
 }

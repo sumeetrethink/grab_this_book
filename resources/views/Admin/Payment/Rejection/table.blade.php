@@ -13,7 +13,7 @@
         </td>
 
         <td>
-                 <button onclick="revertpayment({{$item->id}})"title="Click here to Delete" class="btn btn-danger deleteCarat ">Revert</button>
+                 <button onclick="revertPayment({{$item->id}})" title="Click here to Delete" class="btn btn-danger deleteCarat ">Revert</button>
         </td>
 
     </tr>

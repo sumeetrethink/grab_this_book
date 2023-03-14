@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AdminTable extends Migration
+class Roles extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class AdminTable extends Migration
      */
     public function up()
     {
-        Schema::create('admin', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('vUsername');
-            $table->string('vPassword');
+            $table->string('title');
             $table->timestamps();
         });
-        // $admin->vFirstName='admin';
-       
     }
 
     /**

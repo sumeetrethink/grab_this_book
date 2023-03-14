@@ -1,8 +1,6 @@
 <?php
 
-namespace Database\Seeders;
 
-use App\Models\statusModel;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,10 +13,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            admin_credentials::class,
-            status_seeder::class,
+            AdminSeeder::class,
+            StatusSeeder::class,
+            StatesSeeder::class,
         ]);
     }
 }
-           
-           

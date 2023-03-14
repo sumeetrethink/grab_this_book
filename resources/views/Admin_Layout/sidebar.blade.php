@@ -24,8 +24,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
                 <li class="nav-item ">
-                    <a class="nav-link">
-                        {{-- class="nav-link {{ Request::is('software/dashboard') ? 'active' : '' }} "> --}}
+                    <a href="{{ url('/dashboard') }}" class="nav-link {{ Request::is('/dashboard') ? 'active' : '' }} ">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
