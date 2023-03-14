@@ -27,8 +27,7 @@
         <div class="card">
             <div class="card-body">
                 <div class=" header-buttons float-right">
-                    <a class="btn btn-danger " href="{{ url('software/orders/add') }}"><i
-                            class="fas fa-fw fa-plus-circle"></i>Add</a>
+                   
                     <a class="btn btn-primary " href="{{ url('exportOrder') }}"><i
                             class="fas fa-fw fa-file-excel"></i>Export</a>
                 </div>

@@ -55,8 +55,8 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-        @include('Admin Layout.sidebar')
-        @include('Admin Layout.nav')
+        @include('Admin_Layout.sidebar')
+        @include('Admin_Layout.nav')
         <div id="content-wrapper" class="content-wrapper">
             @yield('content')
         </div>
