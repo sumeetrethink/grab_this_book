@@ -28,7 +28,7 @@ class PaymentController extends Controller
             ->paginate(10);
 
         return view(
-            "Admin.Payment.Checkoutinitiates.list",
+            "Admin.Payment.CheckoutInitiates.list",
             compact("payments")
         );
     }
