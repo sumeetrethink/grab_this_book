@@ -1,9 +1,10 @@
 //  type should be pass to this function  same as given below
+
 // Accepted
 // Rejected
 // Initiated
-function changeStatuue(id, type) 
-{
+
+function changeStatuue(id, type) {
     $.ajax({
         url:
             BASE_URL +
@@ -43,4 +44,21 @@ function Paymentexport(type)
          
         },
     });
+}
+function activeUpi(id)
+{
+    $.ajax({
+        url:
+            BASE_URL +
+            "/upi/active?id=" +
+            id ,
+        success: function (data) {
+         location.reload();
+        },
+    }); 
+}
+function openModal(id)
+{
+    $("#modal-default").modal("show");
+    $("#deleteUPIInput").val(id);
 }

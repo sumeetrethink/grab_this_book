@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Payments\PaymentController;
+use App\Http\Controllers\UpiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,3 +37,11 @@ Route::get('/payments/accepted', [PaymentController::class, 'acceptedPayment'])-
 Route::get('/payments/rejected', [PaymentController::class, 'rejectedPayment'])->name('rejectedPayment')->middleware('validate_admin');
 Route::get('/payment/export', [PaymentController::class, 'export'])->name('export')->middleware('validate_admin');
 Route::get('/payment/change-status', [PaymentController::class, 'changeStatus'])->name('changeStatus')->middleware('validate_admin');
+
+//                                          UPI ID'S 
+
+Route::get('/upi/add', [UpiController::class, 'addForm'])->name('addForm')->middleware('validate_admin');
+Route::post('/upi/add', [UpiController::class, 'add'])->name('add')->middleware('validate_admin');
+Route::get('/upi', [UpiController::class, 'list'])->name('list')->middleware('validate_admin');
+Route::get('/upi/active', [UpiController::class, 'activeUpi'])->name('activeUpi')->middleware('validate_admin');
+Route::post('/upi/delete', [UpiController::class, 'delete'])->name('delete')->middleware('validate_admin');
