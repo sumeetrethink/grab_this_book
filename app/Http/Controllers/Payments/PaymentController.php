@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Payment;
 use App\State;
 use App\Status;
+use App\Upi_id;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -80,13 +81,36 @@ class PaymentController extends Controller
         $payment->update();
     }
 
+    public function showQR()
+    {
+        $activeUPI=Upi_id::where('status','=','active')->first();
+        
+        if( session()->has('paymentID'))
+        {
+            $paymentDetails=Payment::find(session('paymentID'));
+            return view('Admin.Payment.MakePayment.qrcodePage',compact('paymentDetails','activeUPI'));
+        }
+        else
+        {
+        return redirect('/payment/add');
+        }
+    }
+           
+            
     //                         Make payment                                      //
     public function makePaymentForm()
     {
         $states = State::where("country_id", "=", "101")
             ->orderBy("name", "asc")
             ->get();
-        return view("Admin.Payment.MakePayment.addForm", compact("states"));
+       
+            if( session()->has('paymentID'))
+            {
+                return redirect('/payment/qr-code');
+            }
+            return view("Admin.Payment.MakePayment.addForm", compact("states"));
+      
+
     }
     public function makePayment(Request $req)
     {
@@ -102,11 +126,11 @@ class PaymentController extends Controller
         $payment->state_id = $req->state;
         $payment->amount = $req->amount;
         $result = $payment->save();
-        $amount = $req->amount;
-        if ($result) {
-            // return view('Admin.Payment.MakePayment.qrcodePage',compact('amount'));
-            return redirect("/payments/initiated");
+        
+        if ($result && !session()->has("paymentID")) {
+            session()->put(['paymentID'=>$payment->id]);
         }
+        return redirect('/payment/qr-code');
     }
     public function export(Request $req)
     {
@@ -121,5 +145,14 @@ class PaymentController extends Controller
             ->where("statuses.title", "=", "Rejected")
             ->get();
         //   return  Excel::download(new Payment($payments),'Payments.xlsx');
+    }
+    public function clearSession()
+    {
+        if(session()->has('paymentID'))
+        {
+            session()->remove('paymentID');
+            return true;
+        }
+
     }
 }

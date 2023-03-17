@@ -29,8 +29,10 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashb
 
 //                                          payment        
                           
-Route::get('/payment/add', [PaymentController::class, 'makePaymentForm'])->name('makePaymentForm')->middleware('validate_admin');
-Route::post('/payment/add', [PaymentController::class, 'makePayment'])->name('makePayment')->middleware('validate_admin');
+Route::get('/payment/add', [PaymentController::class, 'makePaymentForm'])->name('makePaymentForm');
+Route::post('/payment/add', [PaymentController::class, 'makePayment'])->name('makePayment');
+Route::get('/payment/clear-session', [PaymentController::class, 'clearSession'])->name('clearSession');
+Route::get('/payment/qr-code', [PaymentController::class, 'showQR'])->name('showQR');
 Route::get('/payment/revert', [PaymentController::class, 'revertPayment'])->name('revertPayment')->middleware('validate_admin');
 Route::get('/payments/initiated', [PaymentController::class, 'initiatedPayment'])->name('initiatedPayment')->middleware('validate_admin');
 Route::get('/payments/accepted', [PaymentController::class, 'acceptedPayment'])->name('acceptedPayment')->middleware('validate_admin');

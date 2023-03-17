@@ -62,3 +62,4 @@ function openModal(id)
     $("#modal-default").modal("show");
     $("#deleteUPIInput").val(id);
 }
+

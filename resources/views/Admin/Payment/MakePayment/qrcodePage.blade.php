@@ -2,6 +2,9 @@
 <html>
 
 <head>
+    <script type="text/javascript">
+        BASE_URL = "<?php echo url(''); ?>";
+    </script>
     <title>QR Code and Payment Details</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,7 +28,7 @@
 </style>
 
 <body>
-    <pre>shakti0traders@ibl</pre>
+    <pre>{{$activeUPI->upi_name}}</pre>
 
 
 
@@ -55,58 +58,61 @@
 
                         <span class="pull-right">
                             <i class="fa fa-inr" aria-hidden="true"></i>
-                            {{ $amount }}
+                            {{ $paymentDetails->amount }}
                         </span>
                     </p>
                 </div>
-                <!--  <p class="loader_p">
-                  <img class="img-responsive loader_img" src="images/loader.gif" alt="">
-                  <span class="loader_text">Processing payment</span>
-                  <br>
-                  <span class="loader_text_des">Dont refresh or hit back</span>
-                  </p> -->
+                @php
+                $amount = $paymentDetails->amount;
+                $upiId = $activeUPI->id_upi;
+                $name = $activeUPI->upi_name;
+                $description = `Payment`;
+                
+                $url = 'upi://pay?pa=' . urlencode($upiId) . '&pn=' . urlencode($name) . '&tn=' . urlencode($description) . '&am=' . urlencode($amount) . '&cu=INR';
+                $qrCodeUrl = 'https://chart.googleapis.com/chart?chs=400x400&cht=qr&chl=' . urlencode($url);
+              @endphp
                 <div class="well well_qr_code" style="margin: auto;">
+                    
                     <img class="img-responsive center-block"
-                        src="https://chart.googleapis.com/chart?chs=400x400&amp;cht=qr&amp;chco=1f1f1e&amp;chl=upi%3A%2F%2Fpay%3Fpa%3Dshakti0traders%40ibl%26pn%3DBharatPe+Merchant%26am%3D100%26tn%3DPP193%26cu%3DINR%26mc%3D5411&amp;choe=UTF-8"
+                        src="{{$qrCodeUrl}}"
                         title="Scan &amp; Pay">
                 </div>
-                <p class="timer_p">This session will expire in <span id="time">00:56</span> minutes</p>
+                <p class="timer_p">This session will expire in <span id="time">00:31</span> minutes</p>
 
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        setTimeout(function() {
-            window.location.href = "";
-        }, 59001);
+    <script>
+        function clearPaymentSession() {
+            $.ajax({
+                url: BASE_URL +
+                    "/payment/clear-session",
+                success: function(data) {
+                    location.reload();
+                },
+            });
+        }
 
-        function startTimer(duration, display) {
-            var timer = duration,
-                minutes, seconds;
-            setInterval(function() {
-                minutes = parseInt(timer / 60, 10);
-                seconds = parseInt(timer % 60, 10);
+        function countdownAndReload() {
+            let countdownTime = 30;
+            let countdownEl = document.getElementById('time');
 
-                minutes = minutes < 10 ? "0" + minutes : minutes;
-                seconds = seconds < 10 ? "0" + seconds : seconds;
+            let countdownInterval = setInterval(function() {
+                let minutes = Math.floor(countdownTime / 60);
+                let seconds = countdownTime % 60;
 
-                display.textContent = minutes + ":" + seconds;
+                countdownEl.innerHTML = minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
 
-                if (--timer < 0) {
-                    timer = duration;
+                countdownTime--;
+
+                if (countdownTime < 0) {
+                    clearInterval(countdownInterval);
+                    clearPaymentSession()
+
                 }
             }, 1000);
         }
-
-        window.onload = function() {
-            var twoMinutes = 8,
-                display = document.querySelector('#time');
-            startTimer(twoMinutes, display);
-        };
-
-        if (window.history.replaceState) {
-            window.history.replaceState(null, null, window.location.href);
-        }
+        countdownAndReload()
     </script>
 
 
