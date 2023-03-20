@@ -76,7 +76,7 @@
                     margin: 20px;"
                         class="img-responsive center-block" src="{{ $qrCodeUrl }}" title="Scan &amp; Pay">
                 </div>
-                <p class="timer_p mt-3" style="font-size: 14px">This session will expire in <span id="time">00:31</span> minutes</p>
+                <p class="timer_p mt-3" style="font-size: 14px">This session will expire in <span id="time" class="font-weight-bold">00:31</span> minutes</p>
                 <p class="checkout_go_back"><a class="checkout_go_back_a" href="#"
                     onclick="history.go(-1); return false;"><i class="fa fa-chevron-left"
                         aria-hidden="true"></i> Go Back</a></p>
