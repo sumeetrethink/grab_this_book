@@ -32,12 +32,12 @@
                   @enderror
                </div>
             </div>
-            <div class="col-xs-12 col-md-4">
+            {{-- <div class="col-xs-12 col-md-4">
                <div class="form-group">
                   <label for="exampleInputEmail1">Amout Limit</label>
                   <input type="text" name="upi_limit" value="" id="upi_limit" placeholder="Please provide GST number" class="form-control numberOnly">
                </div>
-            </div>
+            </div> --}}
          </div>
         
         <button type="submit" class="btn btn-success">Add</button>

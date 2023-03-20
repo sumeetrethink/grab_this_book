@@ -27,58 +27,59 @@
     }
 </style>
 
-<body>
-    <pre>{{$activeUPI->upi_name}}</pre>
+<body class="text-center">
 
 
 
+    
     <title>Checkout - Plutus Pay</title>
 
 
     <br>
     <br>
     <br>
-    <div class="container">
-        <div class="row">
+    <div class="container card  col-lg-10 col-11 ">
+        <div class="row card-body ">
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
                 <p>
-                    <img class="checkout_icon" src="images/checkout_icon.png" alt=""> <span
-                        class="checkout_merchant_name">BharatPe Merchant </span>
+                    <img class="checkout_icon" src="images/checkout_icon.png" alt=""> <h6 mt-4>{{ $activeUPI->id_upi }}</h6>
                 </p>
                 <br>
                 <div class="well p-2">
-                    <p class="checkout_go_back"><a class="checkout_go_back_a" href="#"
-                            onclick="history.go(-1); return false;"><i class="fa fa-chevron-left"
-                                aria-hidden="true"></i> Go Back</a></p>
+                    
                     <hr class="hr1">
-                    <p class="checkout_p1">Timestamp<span class="pull-right">Amount</span></p>
+                    <p class="checkout_p1 font-weight-bold"><span class="pull-right">Amount</span></p>
                     <p class="checkout_p2">
+                        
 
-
-                        <span class="pull-right">
-                            <i class="fa fa-inr" aria-hidden="true"></i>
-                            {{ $paymentDetails->amount }}
-                        </span>
+                        <div class="pull-right">
+                            <i class="fa fa-inr " aria-hidden="true"></i>
+                            <span class="" style="font-size: 24px"> ₹ {{ $paymentDetails->amount }}</span>
+                        </div>
                     </p>
+                    
                 </div>
                 @php
-                $amount = $paymentDetails->amount;
-                $upiId = $activeUPI->id_upi;
-                $name = $activeUPI->upi_name;
-                $description = `Payment`;
-                
-                $url = 'upi://pay?pa=' . urlencode($upiId) . '&pn=' . urlencode($name) . '&tn=' . urlencode($description) . '&am=' . urlencode($amount) . '&cu=INR';
-                $qrCodeUrl = 'https://chart.googleapis.com/chart?chs=400x400&cht=qr&chl=' . urlencode($url);
-              @endphp
-                <div class="well well_qr_code" style="margin: auto;">
+                    $amount = $paymentDetails->amount;
+                    $upiId = $activeUPI->id_upi;
+                    $name = $activeUPI->upi_name;
+                    $description = `Payment`;
                     
-                    <img class="img-responsive center-block"
-                        src="{{$qrCodeUrl}}"
-                        title="Scan &amp; Pay">
-                </div>
-                <p class="timer_p">This session will expire in <span id="time">00:31</span> minutes</p>
+                    $url = 'upi://pay?pa=' . urlencode($upiId) . '&pn=' . urlencode($name) . '&tn=' . urlencode($description) . '&am=' . urlencode($amount) . '&cu=INR';
+                    $qrCodeUrl = 'https://chart.googleapis.com/chart?chs=400x400&cht=qr&chl=' . urlencode($url);
+                @endphp
+                <div class="well well_qr_code" style="margin-top: 20px;">
 
+                    <img style="    width: 80%;
+                    height: auto;
+                    margin: 20px;"
+                        class="img-responsive center-block" src="{{ $qrCodeUrl }}" title="Scan &amp; Pay">
+                </div>
+                <p class="timer_p mt-3" style="font-size: 14px">This session will expire in <span id="time">00:31</span> minutes</p>
+                <p class="checkout_go_back"><a class="checkout_go_back_a" href="#"
+                    onclick="history.go(-1); return false;"><i class="fa fa-chevron-left"
+                        aria-hidden="true"></i> Go Back</a></p>
             </div>
         </div>
     </div>
@@ -112,7 +113,7 @@
                 }
             }, 1000);
         }
-        countdownAndReload()
+        // countdownAndReload()
     </script>
 
 

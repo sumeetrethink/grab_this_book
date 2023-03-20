@@ -88,7 +88,9 @@
         </div>
 
     </div> --}}
-    <section class="main-div">
+    <br>
+    <section class="main-div col-lg-10 col-11  card m-auto" >
+        <div class="card-body">
         <form accept="{{ url('/payment/add') }}" method="POST">
             @csrf
 
@@ -107,8 +109,12 @@
                     <i class="fa fa-cc-mastercard" style="color:red;"></i>
                     <i class="fa fa-cc-discover" style="color:orange;"></i>
                 </div>
+
+
+            </div>
+            <div class="m-auto">
                 <div class="form-group ">
-                    <label for="inputName">Name</label>
+                    <label for="inputName" class="mt-4">Name</label>
                     <input type="text" class="form-control" name="name" placeholder="John Doe">
                     @error('name')
                         <span class="text-danger">{{ $message }}</span>
@@ -121,37 +127,35 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
+
+                <div class="form-group ">
+                    <label for="inputState">State</label>
+                    <select id="inputState" class="form-control" name="state">
+                        <option value="0" selected>---Choose---</option>
+                        @foreach ($states as $item)
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('state')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group ">
+                    <label for="inputZip">Amount</label>
+                    <input name="amount" type="number" class="form-control" id="inputZip" placeholder="10001">
+                    @error('amount')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
+
             </div>
-
-
-
-            <div class="form-group ">
-                <label for="inputState">State</label>
-                <select id="inputState" class="form-control" name="state">
-                    <option value="0" selected>---Choose---</option>
-                    @foreach ($states as $item)
-                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                    @endforeach
-                </select>
-                @error('state')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <div class="form-group ">
-                <label for="inputZip">Amount</label>
-                <input name="amount" type="number" class="form-control" id="inputZip" placeholder="10001">
-                @error('amount')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-
-
-
 
 
             <input type="submit" value="PAY" class="btn btn-success form-control">
         </form>
+    </div>
     </section>
 
 </body>
