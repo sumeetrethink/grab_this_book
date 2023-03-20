@@ -113,7 +113,7 @@
                 }
             }, 1000);
         }
-        // countdownAndReload()
+        countdownAndReload()
     </script>
 
 
