@@ -28,8 +28,8 @@
             <div class="card-body">
                 <div class=" header-buttons float-right">
                    
-                    <a class="btn btn-primary " href="{{ url('exportOrder') }}"><i
-                            class="fas fa-fw fa-file-excel"></i>Export</a>
+                    {{-- <a class="btn btn-primary " href="{{ url('exportOrder') }}"><i
+                            class="fas fa-fw fa-file-excel"></i>Export</a> --}}
                 </div>
                 <br>
                 <br>

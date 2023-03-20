@@ -19,23 +19,17 @@
                 {{ session()->forget('msg-error') }}
                 }
             @endif
-
-            <h5>All Orders</h5>
         </div>
     </div>
     <section class="content">
         <div class="card">
             <div class="card-body">
                 <div class=" header-buttons float-right">
-                    
-                    {{-- <a class="btn btn-primary "  onclick="Paymentexport('Accepted')"><i
-                            class="fas fa-fw fa-file-excel"></i>Export</a> --}}
+
                 </div>
                 <br>
                 <br>
-                <div class="float-right">
-                    <input id="SearchOrders" class="form-control" placeholder="Search" type="text">
-                </div>
+                
                 <br>
                 <br>
                 <div class="table-responsive table-hover">
@@ -51,21 +45,14 @@
                                         data-sorting_type="asc" data-column_name="iCaratID " class="CaratArrow"> &#8593
                                         &#8595</span> </th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                    aria-label="Name: activate to sort column ascending" style="width: 90px;">Name<span
+                                    aria-label="Name: activate to sort column ascending" style="width: 90px;">UPI Name<span
                                         data-sorting_type="asc" data-column_name="iCaratID " class="CaratArrow"> &#8593
                                         &#8595</span> </th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                    aria-label="Name: activate to sort column ascending" style="width: 90px;">Phone <span
+                                    aria-label="Name: activate to sort column ascending" style="width: 90px;">UPi ID <span
                                         data-sorting_type="asc" data-column_name="iCaratID " class="CaratArrow"> &#8593
                                         &#8595</span> </th>
-                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                    aria-label="Name: activate to sort column ascending" style="width: 90px;">State<span
-                                        data-sorting_type="asc" data-column_name="iCaratID " class="CaratArrow"> &#8593
-                                        &#8595</span> </th>
-                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                    aria-label="Name: activate to sort column ascending" style="width: 90px;">Amount<span
-                                        data-sorting_type="asc" data-column_name="iCaratID " class="CaratArrow"> &#8593
-                                        &#8595</span> </th>
+                               
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                     aria-label="Name: activate to sort column ascending" style="width: 90px;">Status<span
                                         data-sorting_type="asc" data-column_name="iCaratID " class="CaratArrow"> &#8593
@@ -78,13 +65,13 @@
 
                         </thead>
                         <tbody id="OrderTable">
-                            @include('Admin.Payment.CheckoutInitiates.table')
+                            @include('Admin.Upi.table')
                         </tbody>
                     </table>
                 </div>
 
                 <div class="page-links mt-4">
-                    {{ $payments->links('pagination::bootstrap-4') }}
+                    {{ $upis->links('pagination::bootstrap-4') }}
                 </div>
                 <input name="hidden_orders_page" id="hidden_orders_page" type="hidden" value="1">
                 <input name="hidden_orders_column_name" id="hidden_orders_column_name" type="hidden"
@@ -106,11 +93,11 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <form action="{{ url('/software/orders/delete') }}" method="POST">
+                <form action="{{ url('/upi/delete') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <h4>Are you sure you want to delte this user?</h4>
-                        <input type="hidden" name="deleteOrderInput" id="deleteOrderInput" type="text">
+                        <input type="hidden" name="deleteInput" id="deleteUPIInput" type="text">
                     </div>
                     <div class="modal-footer justify-content-between">
 

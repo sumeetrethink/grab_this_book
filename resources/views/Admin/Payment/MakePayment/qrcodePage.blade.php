@@ -2,6 +2,9 @@
 <html>
 
 <head>
+    <script type="text/javascript">
+        BASE_URL = "<?php echo url(''); ?>";
+    </script>
     <title>QR Code and Payment Details</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,89 +27,93 @@
     }
 </style>
 
-<body>
-    <pre>shakti0traders@ibl</pre>
+<body class="text-center">
 
 
 
+    
     <title>Checkout - Plutus Pay</title>
 
 
     <br>
     <br>
     <br>
-    <div class="container">
-        <div class="row">
+    <div class="container card  col-lg-10 col-11 ">
+        <div class="row card-body ">
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
                 <p>
-                    <img class="checkout_icon" src="images/checkout_icon.png" alt=""> <span
-                        class="checkout_merchant_name">BharatPe Merchant </span>
+                    <img class="checkout_icon" src="images/checkout_icon.png" alt=""> <h6 mt-4>{{ $activeUPI->id_upi }}</h6>
                 </p>
                 <br>
                 <div class="well p-2">
-                    <p class="checkout_go_back"><a class="checkout_go_back_a" href="#"
-                            onclick="history.go(-1); return false;"><i class="fa fa-chevron-left"
-                                aria-hidden="true"></i> Go Back</a></p>
+                    
                     <hr class="hr1">
-                    <p class="checkout_p1">Timestamp<span class="pull-right">Amount</span></p>
+                    <p class="checkout_p1 font-weight-bold"><span class="pull-right">Amount</span></p>
                     <p class="checkout_p2">
+                        
 
-
-                        <span class="pull-right">
-                            <i class="fa fa-inr" aria-hidden="true"></i>
-                            {{ $amount }}
-                        </span>
+                        <div class="pull-right">
+                            <i class="fa fa-inr " aria-hidden="true"></i>
+                            <span class="" style="font-size: 24px"> ₹ {{ $paymentDetails->amount }}</span>
+                        </div>
                     </p>
+                    
                 </div>
-                <!--  <p class="loader_p">
-                  <img class="img-responsive loader_img" src="images/loader.gif" alt="">
-                  <span class="loader_text">Processing payment</span>
-                  <br>
-                  <span class="loader_text_des">Dont refresh or hit back</span>
-                  </p> -->
-                <div class="well well_qr_code" style="margin: auto;">
-                    <img class="img-responsive center-block"
-                        src="https://chart.googleapis.com/chart?chs=400x400&amp;cht=qr&amp;chco=1f1f1e&amp;chl=upi%3A%2F%2Fpay%3Fpa%3Dshakti0traders%40ibl%26pn%3DBharatPe+Merchant%26am%3D100%26tn%3DPP193%26cu%3DINR%26mc%3D5411&amp;choe=UTF-8"
-                        title="Scan &amp; Pay">
-                </div>
-                <p class="timer_p">This session will expire in <span id="time">00:56</span> minutes</p>
+                @php
+                    $amount = $paymentDetails->amount;
+                    $upiId = $activeUPI->id_upi;
+                    $name = $activeUPI->upi_name;
+                    $description = `Payment`;
+                    
+                    $url = 'upi://pay?pa=' . urlencode($upiId) . '&pn=' . urlencode($name) . '&tn=' . urlencode($description) . '&am=' . urlencode($amount) . '&cu=INR';
+                    $qrCodeUrl = 'https://chart.googleapis.com/chart?chs=400x400&cht=qr&chl=' . urlencode($url);
+                @endphp
+                <div class="well well_qr_code" style="margin-top: 20px;">
 
+                    <img style="    width: 80%;
+                    height: auto;
+                    margin: 20px;"
+                        class="img-responsive center-block" src="{{ $qrCodeUrl }}" title="Scan &amp; Pay">
+                </div>
+                <p class="timer_p mt-3" style="font-size: 14px">This session will expire in <span id="time" class="font-weight-bold">00:31</span> minutes</p>
+                <p class="checkout_go_back"><a class="checkout_go_back_a" href="#"
+                    onclick="history.go(-1); return false;"><i class="fa fa-chevron-left"
+                        aria-hidden="true"></i> Go Back</a></p>
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        setTimeout(function() {
-            window.location.href = "";
-        }, 59001);
+    <script>
+        function clearPaymentSession() {
+            $.ajax({
+                url: BASE_URL +
+                    "/payment/clear-session",
+                success: function(data) {
+                    location.reload();
+                },
+            });
+        }
 
-        function startTimer(duration, display) {
-            var timer = duration,
-                minutes, seconds;
-            setInterval(function() {
-                minutes = parseInt(timer / 60, 10);
-                seconds = parseInt(timer % 60, 10);
+        function countdownAndReload() {
+            let countdownTime = 30;
+            let countdownEl = document.getElementById('time');
 
-                minutes = minutes < 10 ? "0" + minutes : minutes;
-                seconds = seconds < 10 ? "0" + seconds : seconds;
+            let countdownInterval = setInterval(function() {
+                let minutes = Math.floor(countdownTime / 60);
+                let seconds = countdownTime % 60;
 
-                display.textContent = minutes + ":" + seconds;
+                countdownEl.innerHTML = minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
 
-                if (--timer < 0) {
-                    timer = duration;
+                countdownTime--;
+
+                if (countdownTime < 0) {
+                    clearInterval(countdownInterval);
+                    clearPaymentSession()
+
                 }
             }, 1000);
         }
-
-        window.onload = function() {
-            var twoMinutes = 8,
-                display = document.querySelector('#time');
-            startTimer(twoMinutes, display);
-        };
-
-        if (window.history.replaceState) {
-            window.history.replaceState(null, null, window.location.href);
-        }
+        countdownAndReload()
     </script>
 
 

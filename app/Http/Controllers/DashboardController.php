@@ -16,7 +16,7 @@ class DashboardController extends Controller
             ->select("payments.*", "statuses.title as status_name")
             ->where("statuses.title", "=", "Accepted")
             ->get();
-
+        
         $RejectedPayments = DB::table("payments")
             ->leftjoin("statuses", "payments.status_id", "=", "statuses.id")
             ->select("payments.*", "statuses.title as status_name")
