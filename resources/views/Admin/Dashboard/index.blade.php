@@ -9,6 +9,7 @@
         <div class="content-header">
             <div class="container-fluid d-flex flex-row justify-content-between">
                 <h5>Dashboard</h5>
+                @if(session('user')->role == 'Admin')
                 <div class="input-group col-4">
                     <input type="text" id="linkInput" aria-label="Disabled input example" disabled readonly
                         class="form-control" value="{{url('payment/add?id='.$encrytptedID)}}" style="background:rgb(202, 201, 201) ">
@@ -18,7 +19,7 @@
                         
                     </span>
                 </div>
-                
+                @endif
             </div>
         </div>
         @if (session('user')->role == 'Admin')

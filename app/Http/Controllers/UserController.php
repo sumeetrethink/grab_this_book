@@ -30,8 +30,7 @@ class UserController extends Controller
             ['name'=>'required',
             'username'=>'required|unique:users',
             'password'=>'required',
-            'confirmPassword' => 'required|same:password',
-        ],
+            'confirmPassword' => 'required|same:password',]
         );
         $user=new User();
         $user->name=$req->name;
