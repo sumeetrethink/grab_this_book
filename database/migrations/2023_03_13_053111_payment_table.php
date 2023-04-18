@@ -19,6 +19,7 @@ class PaymentTable extends Migration
             $table->string('phone');
             $table->string('state_id');
             $table->string('amount');
+            $table->string('admin_id');
             $table->string('status_id')->nullable();
             $table->timestamps();
         });

@@ -3,6 +3,9 @@
 
         <td>{{ $item->id }}</td>
         <td>
+            {{ $item->username }}
+        </td>
+        <td>
             {{ $item->upi_name }}
         </td>
         <td>{{ $item->id_upi }}</td>

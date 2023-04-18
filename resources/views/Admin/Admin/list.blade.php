@@ -1,4 +1,4 @@
-@extends('Admin.index', ['title' => 'Get This Book | Dashboard'])
+@extends('Admin.index', ['title' => 'Get This Book | Admin'])
 @section('content')
     <div class="content-header">
         <div class="container-fluid">
@@ -24,24 +24,14 @@
     <section class="content">
         <div class="card">
             <div class="card-body">
-                <div class=" header-buttons ">
-                    <form action="{{url('/upi')}}" method="get" id="search-form">
-                    <div class="row">
-                        <div class="form-group col-3">
-                            <select class="form-control" name="user_id" id="user_id">
-                                <option value="0">--Choose--</option>
-                                @foreach ($admins as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        
-                        <div class="form-group col-3">
-                            <button class="btn btn-success" onclick="searchData()">Filter</button>
-                        </div>
-                    </form>
-                    </div>
+                <div class=" header-buttons float-right">
+
                 </div>
+                <br>
+                <br>
+                
+                <br>
+                <br>
                 <div class="table-responsive table-hover">
 
                     <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
@@ -55,22 +45,10 @@
                                         data-sorting_type="asc" data-column_name="iCaratID " class="CaratArrow"> &#8593
                                         &#8595</span> </th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                    aria-label="Name: activate to sort column ascending" style="width: 90px;">Admin<span
+                                    aria-label="Name: activate to sort column ascending" style="width: 90px;">Name<span
                                         data-sorting_type="asc" data-column_name="iCaratID " class="CaratArrow"> &#8593
                                         &#8595</span> </th>
-                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                    aria-label="Name: activate to sort column ascending" style="width: 90px;">UPI Name<span
-                                        data-sorting_type="asc" data-column_name="iCaratID " class="CaratArrow"> &#8593
-                                        &#8595</span> </th>
-                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                    aria-label="Name: activate to sort column ascending" style="width: 90px;">UPi ID <span
-                                        data-sorting_type="asc" data-column_name="iCaratID " class="CaratArrow"> &#8593
-                                        &#8595</span> </th>
-
-                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                    aria-label="Name: activate to sort column ascending" style="width: 90px;">Status<span
-                                        data-sorting_type="asc" data-column_name="iCaratID " class="CaratArrow"> &#8593
-                                        &#8595</span> </th>
+                               
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                     aria-label="Name: activate to sort column ascending" style="width: 90px;">Actions<span
                                         data-sorting_type="asc" data-column_name="iCaratID " class="CaratArrow"> &#8593
@@ -79,13 +57,13 @@
 
                         </thead>
                         <tbody id="OrderTable">
-                            @include('Admin.Upi.table')
+                            @include('Admin.Admin.table')
                         </tbody>
                     </table>
                 </div>
 
                 <div class="page-links mt-4">
-                    {{ $upis->links('pagination::bootstrap-4') }}
+                    {{ $admins->links('pagination::bootstrap-4') }}
                 </div>
                 <input name="hidden_orders_page" id="hidden_orders_page" type="hidden" value="1">
                 <input name="hidden_orders_column_name" id="hidden_orders_column_name" type="hidden"
@@ -107,11 +85,11 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <form action="{{ url('/upi/delete') }}" method="POST">
+                <form action="{{ url('/admin/delete') }}" method="POST">
                     @csrf
                     <div class="modal-body">
-                        <h4>Are you sure you want to delete this UPI?</h4>
-                        <input type="hidden" name="deleteInput" id="deleteUPIInput" type="text">
+                        <h4>Are you sure you want to delete this user?</h4>
+                        <input type="hidden" name="deleteInput" id="deleteInput" type="text">
                     </div>
                     <div class="modal-footer justify-content-between">
 
@@ -122,12 +100,10 @@
     </div>
     </div>
     <script>
-        function searchDate() {
-            event.preventDefault();
-        const url = new URL(window.location.href);
-        const user_id = $('#user_id').val();
-        url.searchParams.set('user', user_id ?? '');
-        $('#search-form').attr('action', url.toString()).submit();
+        function openCusomtModal(id)
+        {
+            $('#modal-default').modal('show')
+            $('#deleteInput').val(id)
         }
     </script>
 @endsection

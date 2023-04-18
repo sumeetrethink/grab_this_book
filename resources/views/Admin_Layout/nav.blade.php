@@ -33,7 +33,7 @@
          <li class="nav-item dropdown ">
              <a class="nav-link d-flex flex-row align-items-center " data-toggle="dropdown" href="#">
                  <i class="far fa-user p-2"></i>
-                 {{ session()->has('admin') ? session('admin') : ' ' }}
+                 {{ session()->has('user') ? session('user')->name : ' ' }}
                  
 
              </a>

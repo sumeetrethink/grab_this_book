@@ -16,13 +16,13 @@ class admin_validate
      */
     public function handle(Request $request, Closure $next)
     {
-        if((session()->has('admin')) )
+        if((session()->has('user') &&  session('user')->role=="Admin") )
         {
 
             return $next($request);
         }
        
         else
-        return redirect('/');
+        return redirect()->back();
     }
 }
