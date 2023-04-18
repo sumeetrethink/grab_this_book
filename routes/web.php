@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Payments\PaymentController;
 use App\Http\Controllers\UpiController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +26,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 //                                         DASHBOARD      
 
-Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard')->middleware('validate_admin');
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
 //                                          payment        
                           
@@ -42,8 +43,13 @@ Route::get('/payment/change-status', [PaymentController::class, 'changeStatus'])
 
 //                                          UPI ID'S 
 
-Route::get('/upi/add', [UpiController::class, 'addForm'])->name('addForm')->middleware('validate_admin');
-Route::post('/upi/add', [UpiController::class, 'add'])->name('add')->middleware('validate_admin');
-Route::get('/upi', [UpiController::class, 'list'])->name('list')->middleware('validate_admin');
-Route::get('/upi/active', [UpiController::class, 'activeUpi'])->name('activeUpi')->middleware('validate_admin');
-Route::post('/upi/delete', [UpiController::class, 'delete'])->name('delete')->middleware('validate_admin');
+Route::get('/upi/add', [UpiController::class, 'addForm'])->name('addForm')->middleware('superAdmin');
+Route::post('/upi/add', [UpiController::class, 'add'])->name('add')->middleware('superAdmin');
+Route::get('/upi', [UpiController::class, 'list'])->name('list')->middleware('superAdmin');
+Route::get('/upi/active', [UpiController::class, 'activeUpi'])->name('activeUpi')->middleware('superAdmin');
+Route::post('/upi/delete', [UpiController::class, 'delete'])->name('delete')->middleware('superAdmin');
+
+Route::get('/admin', [UserController::class, 'list'])->name('list')->middleware('superAdmin');
+Route::get('/admin/add', [UserController::class, 'addForm'])->name('addForm')->middleware('superAdmin');
+Route::post('/admin/add', [UserController::class, 'add'])->name('add')->middleware('superAdmin');
+Route::post('/admin/delete', [UserController::class, 'delete'])->name('delete')->middleware('superAdmin');

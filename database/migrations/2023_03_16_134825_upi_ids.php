@@ -15,6 +15,7 @@ class UpiIds extends Migration
     {
         Schema::create('upi_ids', function (Blueprint $table) {
             $table->id();
+            $table->string('admin');
             $table->string('upi_name');
             $table->string('id_upi');
             $table->string('amount_limit')->nullable();

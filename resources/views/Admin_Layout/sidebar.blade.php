@@ -31,76 +31,107 @@
                         </p>
                     </a>
                 </li>
+                @if (session('user')->role == 'Admin')
+                    <li
+                        class="nav-item  {{ Request::is('payments/initiated') || Request::is('payments/rejected') || Request::is('payments/accepted') ? ' menu-is-opening menu-open' : '' }} ">
+                        <a href="#" class="nav-link ">
+                            <i class="fas nav-icon fa-list-alt"></i>
+                            <p>
+                                Payments
 
-                <li
-                    class="nav-item  {{ Request::is('payments/initiated')||Request::is('payments/rejected')||Request::is('payments/accepted') ? ' menu-is-opening menu-open' : '' }} ">
-                    <a href="#" class="nav-link ">
-                        <i class="fas nav-icon fa-list-alt"></i>
-                        <p>
-                            Payments
-
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item ">
-                            <a href="{{ url('/payments/initiated') }}"
-                                class="nav-link  {{ Request::is('payments/initiated') ? 'active' : '' }}">
-                                <i class="fa fa-hourglass-start"></i>
-                                <p>Initiated</p>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a href="{{ url('/payments/accepted') }}"
-                                class="nav-link  {{ Request::is('payments/accepted') ? 'active' : '' }}">
-                                <i class="fa fa-check"></i>
-                                <p>Accepted</p>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a href="{{ url('/payments/rejected') }}"
-                                class="nav-link  {{ Request::is('payments/rejected') ? 'active' : '' }}">
-                                <i class="far fa-user nav-icon"></i>
-                                <p>Rejected</p>
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </li>
-
-                <li
-                class="nav-item  {{  Request::is('upi/add') || Request::is('upi') ? ' menu-is-opening menu-open' : '' }} ">
-                <a href="#" class="nav-link ">
-                    <i class="fas nav-icon fa-list-alt"></i>
-                    <p>
-                        Settings
-
-                        <i class="fas fa-angle-left right"></i>
-                    </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item ">
-                        <a href="{{ url('/upi/add') }}"
-                            class="nav-link  {{ Request::is('upi/add') ? 'active' : '' }}">
-                            <i class="fa fa-hourglass-start"></i>
-                            <p>Add Upi</p>
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
                         </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item ">
+                                <a href="{{ url('/payments/initiated') }}"
+                                    class="nav-link  {{ Request::is('payments/initiated') ? 'active' : '' }}">
+                                    <i class=" nav-icon fa fa-hourglass-start"></i>
+                                    <p>Initiated</p>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a href="{{ url('/payments/accepted') }}"
+                                    class="nav-link  {{ Request::is('payments/accepted') ? 'active' : '' }}">
+                                    <i class=" nav-icon fa fa-check"></i>
+                                    <p>Accepted</p>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a href="{{ url('/payments/rejected') }}"
+                                    class="nav-link  {{ Request::is('payments/rejected') ? 'active' : '' }}">
+                                    <i class="nav-icon far fa-user nav-icon"></i>
+                                    <p>Rejected</p>
+                                </a>
+                            </li>
+
+                        </ul>
+
                     </li>
-                   
-                    <li class="nav-item ">
-                        <a href="{{ url('/upi') }}"
-                            class="nav-link  {{ Request::is('upi') ? 'active' : '' }}">
-                            <i class="far fa-user nav-icon"></i>
-                            <p>Manage UPI's</p>
+                @endif
+                @if (session('user')->role == 'Super Admin')
+                    <li
+                        class="nav-item  {{ Request::is('upi/add') || Request::is('upi') ? ' menu-is-opening menu-open' : '' }} ">
+                        <a href="#" class="nav-link ">
+                            <i class="fas nav-icon fa-list-alt"></i>
+                            <p>
+                                Settings
+
+                                <i class=" fas fa-angle-left right"></i>
+                            </p>
                         </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item ">
+                                <a href="{{ url('/upi/add') }}"
+                                    class="nav-link  {{ Request::is('upi/add') ? 'active' : '' }}">
+                                    <i class="nav-icon fa fa-hourglass-start"></i>
+                                    <p>Add Upi</p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item ">
+                                <a href="{{ url('/upi') }}"
+                                    class="nav-link  {{ Request::is('upi') ? 'active' : '' }}">
+                                    <i class="nav-icon far fa-user nav-icon"></i>
+                                    <p>Manage UPI's</p>
+                                </a>
+                            </li>
+
+                        </ul>
+
                     </li>
 
-                </ul>
+                    <li
+                        class="nav-item  {{ Request::is('admin/add') || Request::is('admin') ? ' menu-is-opening menu-open' : '' }} ">
+                        <a href="#" class="nav-link ">
+                            <i class="fas nav-icon fa-users"></i>
+                            <p>
+                                Admin
 
-            </li>
+                                <i class=" fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item ">
+                                <a href="{{ url('/admin/add') }}"
+                                    class="nav-link  {{ Request::is('admin/add') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-user-plus"></i>
+                                    <p>Add Admin</p>
+                                </a>
+                            </li>
 
+                            <li class="nav-item ">
+                                <a href="{{ url('/admin') }}"
+                                    class="nav-link  {{ Request::is('admin') ? 'active' : '' }}">
+                                    <i class="nav-icon fa fa-users"></i>
+                                    <p>Manage Admin</p>
+                                </a>
+                            </li>
 
+                        </ul>
+
+                    </li>
+                @endif
         </nav>
     </div>
 </aside>

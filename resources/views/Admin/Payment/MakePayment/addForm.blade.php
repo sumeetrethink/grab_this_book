@@ -93,7 +93,7 @@
         <div class="card-body">
         <form accept="{{ url('/payment/add') }}" method="POST">
             @csrf
-
+            <input  type="hidden" name="adminId" value="{{$AdminId}}">
 
 
 

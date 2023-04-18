@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -19,19 +20,21 @@ class LoginController extends Controller
             "vPassword" => "required",
         ]);
 
-        $user = User::where("role", "=", 1)
-            ->where("username", "=", $req->vUsername)
-            ->first();
+        $user = User::where("username", "=", $req->vUsername)
+        ->first();
         if ($user) {
             if (Hash::check($req->vPassword, $user->password)) {
-                session()->put("admin", $req->vUsername);
+                session()->put("user", $user);
+                
                 return redirect("/dashboard");
+            } else {
+                return redirect("/");
             }
         }
     }
     public function logout()
     {
-        session()->remove("admin");
+        session()->remove("user");
         return redirect("/");
     }
 }

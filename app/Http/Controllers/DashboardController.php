@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Payment;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -22,12 +23,14 @@ class DashboardController extends Controller
             ->select("payments.*", "statuses.title as status_name")
             ->where("statuses.title", "=", "Rejected")
             ->get();
+            $admins=User::where('role','=','Admin')->get()->count();
         return view(
             "Admin.Dashboard.index",
             compact(
                 "RejectedPayments",
                 "Acceptedpayments",
-                "inititatedPayments"
+                "inititatedPayments",
+                "admins"
             )
         );
     }

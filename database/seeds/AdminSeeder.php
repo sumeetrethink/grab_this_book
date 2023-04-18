@@ -14,10 +14,10 @@ class AdminSeeder extends Seeder
     public function run()
     {
         $admin=new User();
-        $admin->name='admin';
+        $admin->name='Super Admin';
         $admin->username='admin';
         $admin->password=Hash::make('admin');
-        $admin->role=1;
+        $admin->role="Super Admin";
         $admin->save();
     }
 }
