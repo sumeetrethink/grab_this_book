@@ -25,13 +25,18 @@ class LoginController extends Controller
         if ($user) {
             if (Hash::check($req->vPassword, $user->password)) {
                 session()->put("user", $user);
-                
                 return redirect("/dashboard");
             } else {
-                return redirect("/");
+                return redirect("/")->with(["msg-password"=>"Password is incorrect","username"=>$req->vUsername]);
             }
         }
+        else
+        {
+            return redirect("/")->with(["msg-username"=>"Invalid username","username"=>$req->vUsername]);
+        }
     }
+
+            
     public function logout()
     {
         session()->remove("user");

@@ -26,7 +26,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 //                                         DASHBOARD      
 
-Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard')->middleware('userMiddleWare');
 
 //                                          payment        
                           
@@ -53,3 +53,5 @@ Route::get('/admin', [UserController::class, 'list'])->name('list')->middleware(
 Route::get('/admin/add', [UserController::class, 'addForm'])->name('addForm')->middleware('superAdmin');
 Route::post('/admin/add', [UserController::class, 'add'])->name('add')->middleware('superAdmin');
 Route::post('/admin/delete', [UserController::class, 'delete'])->name('delete')->middleware('superAdmin');
+Route::get('/admin/edit', [UserController::class, 'addForm'])->name('addForm')->middleware('superAdmin');
+Route::post('/admin/edit', [UserController::class, 'edit'])->name('edit')->middleware('superAdmin');

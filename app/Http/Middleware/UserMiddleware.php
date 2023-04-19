@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class SuperAdmin
+class UserMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,8 +15,7 @@ class SuperAdmin
      */
     public function handle($request, Closure $next)
     {
-        
-        if((session()->has('user') &&  session('user')->role=="Super Admin"))
+        if(session()->has('user') )
         {
 
             return $next($request);

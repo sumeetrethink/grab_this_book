@@ -21,11 +21,17 @@
                             @csrf
                             <div class="form-group">
                                 <label for="username">Username</label>
-                                <input type="text" class="form-control" id="username" name="vUsername" required>
+                                <input placeholder="Username" type="text" class="form-control" id="username" value="{{session()->has('username')?session('username'):''}}" name="vUsername" required>
+                                @if(session()->has('msg-username'))
+                                <span class="text-danger">{{session('msg-username')}}</span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password" name="vPassword" required>
+                                <input type="password" class="form-control"  id="password" name="vPassword" required placeholder="**********">
+                                @if(session()->has('msg-password'))
+                                <span class="text-danger">{{session('msg-password')}}</span>
+                                @endif
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">Login</button>
                         </form>

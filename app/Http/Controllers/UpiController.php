@@ -11,7 +11,7 @@ class UpiController extends Controller
 {
     public function addForm()
     {
-        $admins=User::where('role','=','Admin')->get();
+        $admins=User::where('role','=','Admin')->where('status','=','active')->get();
          return view('Admin.Upi.add',compact('admins'));
     }    
     public function add(Request $req)
@@ -26,13 +26,21 @@ class UpiController extends Controller
         $upi->upi_name=$req->upi_name;
         $upi->id_upi=$req->upi_id;
         $upi->amount_limit=$req->upi_limit;
-        $upi->save();
-        return redirect('/upi');
+        $result=$upi->save();
+        if($result)
+        {
+            return redirect('/upi')->with(["msg-success"=>'Upi added successfully']);
+        }
+        else
+        {
+            return redirect('/upi')->with(["msg-error"=>'Somthing went wrong could not add upi']);
+        }
+        
     }
     public function list(Request $req)
     {
         $user=$req->user_id !==0 ? $req->user_id: null;
-        $admins=User::where('role','=','Admin')->paginate(10);
+        $admins=User::where('role','=','Admin')->where('status','=','active')->paginate(10);
         $upis=DB::table('upi_ids')->leftJoin('users','upi_ids.admin','users.id')
         ->when($user, function ($query, $user) {
             $query->where(function ($query) use ($user) {
@@ -62,8 +70,17 @@ class UpiController extends Controller
     public function delete(Request $req)
     {
         $upi=Upi_id::find($req->deleteInput);
-        $upi->delete();
-        return redirect('/upi');
+        $result=$upi->delete();
+        if($result)
+        {
+            return redirect('/upi')->with(["msg-success"=>'Upi deleted successfully']);
+        }
+        else
+        {
+            return redirect('/upi')->with(["msg-error"=>'Somthing went wrong could not delete upi']);
+        }
     }
+            
+
 
 }
