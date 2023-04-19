@@ -23,6 +23,6 @@ class admin_validate
         }
        
         else
-        return redirect()->back();
+        return redirect('/');
     }
 }

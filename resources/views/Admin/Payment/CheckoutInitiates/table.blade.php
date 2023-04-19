@@ -8,6 +8,7 @@
         <td>{{ $item->phone }}</td>
         <td>{{ $item->state_id }}</td>
         <td class="text-bold">₹ {{ $item->amount }}</td>
+        <td class="">{{ \Carbon\Carbon::parse($item->updated_at)->format('F j, Y,') }}</td>
         <td>
             {{ $item->status_name ?? 'Initiated' }}
         </td>

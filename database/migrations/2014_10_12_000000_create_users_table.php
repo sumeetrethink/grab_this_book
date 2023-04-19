@@ -19,7 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('username');
             $table->string('password');
             $table->string('role');
-           
+            $table->enum('status', ['active', 'inactive'])->default('active');
+            
            
             $table->timestamps();
         });

@@ -66,6 +66,10 @@
                                     aria-label="Name: activate to sort column ascending" style="width: 90px;">Amount<span
                                         data-sorting_type="asc" data-column_name="iCaratID " class="CaratArrow"> &#8593
                                         &#8595</span> </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                    aria-label="Name: activate to sort column ascending" style="width: 90px;">Date<span
+                                        data-sorting_type="asc" data-column_name="iCaratID " class="CaratArrow"> &#8593
+                                        &#8595</span> </th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                     aria-label="Name: activate to sort column ascending" style="width: 90px;">Status<span
                                         data-sorting_type="asc" data-column_name="iCaratID " class="CaratArrow"> &#8593
